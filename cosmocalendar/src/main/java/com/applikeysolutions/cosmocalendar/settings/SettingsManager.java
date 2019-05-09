@@ -113,6 +113,11 @@ public class SettingsManager implements AppearanceInterface, DateInterface, Cale
     }
 
     @Override
+    public int getCurrentDayBackgroundColor() {
+        return appearanceModel.getCurrentDayBackgroundColor();
+    }
+
+    @Override
     public int getCurrentDaySelectedIconRes() {
         return appearanceModel.getCurrentDaySelectedIconRes();
     }
@@ -225,6 +230,11 @@ public class SettingsManager implements AppearanceInterface, DateInterface, Cale
     @Override
     public void setCurrentDayIconRes(int currentDayIconRes) {
         appearanceModel.setCurrentDayIconRes(currentDayIconRes);
+    }
+
+    @Override
+    public void setCurrentDayBackgroundColor(int currentDayBackgroundColor) {
+        appearanceModel.setCurrentDayBackgroundColor(currentDayBackgroundColor);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.applikeysolutions.cosmocalendar.sample;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
@@ -18,12 +19,15 @@ import com.applikeysolutions.cosmocalendar.selection.criteria.WeekDayCriteria;
 import com.applikeysolutions.cosmocalendar.selection.criteria.month.CurrentMonthCriteria;
 import com.applikeysolutions.cosmocalendar.selection.criteria.month.NextMonthCriteria;
 import com.applikeysolutions.cosmocalendar.selection.criteria.month.PreviousMonthCriteria;
+import com.applikeysolutions.cosmocalendar.settings.lists.connected_days.ConnectedDays;
 import com.applikeysolutions.cosmocalendar.utils.SelectionType;
 import com.applikeysolutions.cosmocalendar.view.CalendarView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class DefaultCalendarActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
 
@@ -53,6 +57,20 @@ public class DefaultCalendarActivity extends AppCompatActivity implements RadioG
         calendarView = (CalendarView) findViewById(R.id.calendar_view);
         ((RadioGroup) findViewById(R.id.rg_orientation)).setOnCheckedChangeListener(this);
         ((RadioGroup) findViewById(R.id.rg_selection_type)).setOnCheckedChangeListener(this);
+
+//        //Set days you want to connect
+//        Calendar calendar = Calendar.getInstance();
+//        Set<Long> days = new TreeSet<>();
+//        days.add(calendar.getTimeInMillis() + 1000 * 60 * 60 * 24 * 3);
+//
+//        //Define colors
+//        int textColor = Color.parseColor("#ff0000");
+//        int selectedTextColor = Color.parseColor("#ff4000");
+//        int disabledTextColor = Color.parseColor("#ff8000");
+//        ConnectedDays connectedDays = new ConnectedDays(days, textColor, selectedTextColor, disabledTextColor);
+//
+//        //Connect days to calendar
+//        calendarView.addConnectedDays(connectedDays);
     }
 
     private void createCriterias() {

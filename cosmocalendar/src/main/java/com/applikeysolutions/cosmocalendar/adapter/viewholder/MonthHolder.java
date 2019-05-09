@@ -1,9 +1,8 @@
 package com.applikeysolutions.cosmocalendar.adapter.viewholder;
 
-import android.support.v7.widget.OrientationHelper;
+import android.annotation.SuppressLint;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.applikeysolutions.cosmocalendar.settings.SettingsManager;
@@ -14,20 +13,16 @@ import com.applikeysolutions.cosmocalendar.view.MonthView;
 
 public class MonthHolder extends RecyclerView.ViewHolder {
 
-    private LinearLayout llMonthHeader;
+//    private LinearLayout llMonthHeader;
     private TextView tvMonthName;
-    private View viewLeftLine;
-    private View viewRightLine;
     private MonthView monthView;
     private SettingsManager appearanceModel;
 
     public MonthHolder(View itemView, SettingsManager appearanceModel) {
         super(itemView);
-        llMonthHeader = (LinearLayout) itemView.findViewById(R.id.ll_month_header);
+//        llMonthHeader = (LinearLayout) itemView.findViewById(R.id.ll_month_header);
         monthView = (MonthView) itemView.findViewById(R.id.month_view);
         tvMonthName = (TextView) itemView.findViewById(R.id.tv_month_name);
-        viewLeftLine = itemView.findViewById(R.id.view_left_line);
-        viewRightLine = itemView.findViewById(R.id.view_right_line);
         this.appearanceModel = appearanceModel;
     }
 
@@ -35,13 +30,12 @@ public class MonthHolder extends RecyclerView.ViewHolder {
         getMonthView().setAdapter(adapter);
     }
 
+    @SuppressLint("SetTextI18n")
     public void bind(Month month) {
-        tvMonthName.setText(month.getMonthName());
+        tvMonthName.setText(month.getMonthName().substring(0,1).toUpperCase() + month.getMonthName().substring(1));
         tvMonthName.setTextColor(appearanceModel.getMonthTextColor());
 
-        viewLeftLine.setVisibility(appearanceModel.getCalendarOrientation() == OrientationHelper.HORIZONTAL ? View.INVISIBLE : View.VISIBLE);
-        viewRightLine.setVisibility(appearanceModel.getCalendarOrientation() == OrientationHelper.HORIZONTAL ? View.INVISIBLE : View.VISIBLE);
-        llMonthHeader.setBackgroundResource(appearanceModel.getCalendarOrientation() == OrientationHelper.HORIZONTAL ? R.drawable.border_top_bottom : 0);
+//        llMonthHeader.setBackgroundResource(appearanceModel.getCalendarOrientation() == OrientationHelper.HORIZONTAL ? R.drawable.border_top_bottom : 0);
 
         monthView.initAdapter(month);
     }

@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.view.animation.Animation;
@@ -49,14 +50,21 @@ public class CircleAnimationTextView extends AppCompatTextView {
 
     public CircleAnimationTextView(Context context) {
         super(context);
+        init();
     }
 
     public CircleAnimationTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init();
     }
 
     public CircleAnimationTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init();
+    }
+
+    private void init() {
+        setTypeface(Typeface.createFromAsset(getContext().getAssets(), "fonts/Lato-Light.ttf"));
     }
 
     //Square view
@@ -132,7 +140,7 @@ public class CircleAnimationTextView extends AppCompatTextView {
         final int diameterProgress = animationProgress * diameter / MAX_PROGRESS;
 
         setBackgroundColor(Color.TRANSPARENT);
-        canvas.drawCircle(getWidth() / 2, getWidth() / 2, diameterProgress / 2, circlePaint);
+        canvas.drawCircle(getWidth() / 2, getHeight() / 2, diameterProgress / 2, circlePaint);
     }
 
     private void drawCircleUnder(Canvas canvas) {
@@ -310,6 +318,12 @@ public class CircleAnimationTextView extends AppCompatTextView {
         clearVariables();
         selectionState = SelectionState.SINGLE_DAY;
         showAsCircle(calendarView.getSelectedDayBackgroundColor());
+    }
+
+    public void showAsCurrentSingleCircle(CalendarView calendarView) {
+        clearVariables();
+        selectionState = SelectionState.SINGLE_DAY;
+        showAsCircle(calendarView.getCurrentDayBackgroundColor());
     }
 
     public void showAsStartCircle(CalendarView calendarView, boolean animate) {

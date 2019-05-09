@@ -10,12 +10,17 @@
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize" />
 
-    <com.applikeysolutions.cosmocalendar.view.CalendarView
-        android:id="@+id/calendar_view"
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/ll_settings"
-        android:layout_below="@id/toolbar"/>
+        android:layout_margin="20dp"
+        android:layout_below="@id/toolbar">
+
+        <com.applikeysolutions.cosmocalendar.view.CalendarView
+            android:id="@+id/calendar_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </android.support.v7.widget.CardView>
 
     <LinearLayout
         android:id="@+id/ll_settings"

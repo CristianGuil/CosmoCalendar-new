@@ -12,7 +12,7 @@
         android:gravity="center"
         android:padding="@dimen/day_text_padding"
         android:textColor="@color/default_day_text_color"
-        android:textSize="@dimen/day_text_size"
+        android:textSize="@dimen/day_number_text_size"
         tools:text="10" />
 
 </FrameLayout>

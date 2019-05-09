@@ -38,6 +38,9 @@ public class AppearanceModel implements AppearanceInterface {
     //Icon resource of current day
     private int currentDayIconRes;
 
+    //Background color of current day
+    private int currentDayBackgroundColor;
+
     //Icon resource of current day selected
     private int currentDaySelectedIconRes;
 
@@ -135,6 +138,11 @@ public class AppearanceModel implements AppearanceInterface {
     @Override
     public int getCurrentDayIconRes() {
         return currentDayIconRes;
+    }
+
+    @Override
+    public int getCurrentDayBackgroundColor() {
+        return currentDayBackgroundColor;
     }
 
     @Override
@@ -250,6 +258,11 @@ public class AppearanceModel implements AppearanceInterface {
     @Override
     public void setCurrentDayIconRes(int currentDayIconRes) {
         this.currentDayIconRes = currentDayIconRes;
+    }
+
+    @Override
+    public void setCurrentDayBackgroundColor(int currentDayBackgroundColor) {
+        this.currentDayBackgroundColor = currentDayBackgroundColor;
     }
 
     @Override

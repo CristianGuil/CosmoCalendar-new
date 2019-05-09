@@ -34,9 +34,10 @@ public class DayHolder extends BaseDayHolder {
             unselect(day);
         }
 
-        if (day.isCurrent()) {
-            addCurrentDayIcon(isSelected);
-        }
+//        if (day.isCurrent()) {
+////            addCurrentDayIcon(isSelected);
+//            addCurrentDayBackground(day, isSelected);
+//        }
 
         if(day.isDisabled()){
             ctvDay.setTextColor(calendarView.getDisabledDayTextColor());
@@ -48,6 +49,18 @@ public class DayHolder extends BaseDayHolder {
         ctvDay.setCompoundDrawablesWithIntrinsicBounds(0, isSelected
                 ? calendarView.getCurrentDaySelectedIconRes()
                 : calendarView.getCurrentDayIconRes(), 0, 0);
+    }
+
+    private void addCurrentDayBackground(Day day){
+        if (day.isFromConnectedCalendar()) {
+            ctvDay.setTextColor(day.getConnectedDaysSelectedTextColor());
+            addConnectedDayIcon(true);
+        } else {
+            ctvDay.setTextColor(calendarView.getSelectedDayTextColor());
+            ctvDay.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        }
+
+        ctvDay.showAsCurrentSingleCircle(calendarView);
     }
 
     private int getCurrentDayIconHeight(boolean isSelected){
@@ -159,24 +172,30 @@ public class DayHolder extends BaseDayHolder {
     }
 
     private void unselect(Day day) {
-        int textColor;
-        if (day.isFromConnectedCalendar()) {
-            if(day.isDisabled()){
-                textColor = day.getConnectedDaysDisabledTextColor();
-            } else {
-                textColor = day.getConnectedDaysTextColor();
-            }
-            addConnectedDayIcon(false);
-        } else if (day.isWeekend()) {
-            textColor = calendarView.getWeekendDayTextColor();
-            ctvDay.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        if (day.isCurrent()) {
+//            addCurrentDayIcon(isSelected);
+            addCurrentDayBackground(day);
         } else {
-            textColor = calendarView.getDayTextColor();
-            ctvDay.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+            int textColor;
+            if (day.isFromConnectedCalendar()) {
+                if(day.isDisabled()){
+                    textColor = day.getConnectedDaysDisabledTextColor();
+                } else {
+                    textColor = day.getConnectedDaysTextColor();
+                }
+                addConnectedDayIcon(false);
+            } else if (day.isWeekend()) {
+                textColor = calendarView.getWeekendDayTextColor();
+                ctvDay.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+            } else {
+                textColor = calendarView.getDayTextColor();
+                ctvDay.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+            }
+            day.setSelectionCircleDrawed(false);
+            ctvDay.setTextColor(textColor);
+            ctvDay.clearView();
         }
-        day.setSelectionCircleDrawed(false);
-        ctvDay.setTextColor(textColor);
-        ctvDay.clearView();
+
     }
 
     private int getPadding(int iconHeight){

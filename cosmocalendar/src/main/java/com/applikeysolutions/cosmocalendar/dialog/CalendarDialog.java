@@ -174,6 +174,11 @@ public class CalendarDialog extends Dialog implements View.OnClickListener,
     }
 
     @Override
+    public int getCurrentDayBackgroundColor() {
+        return calendarView.getCurrentDayBackgroundColor();
+    }
+
+    @Override
     public int getCurrentDaySelectedIconRes() {
         return calendarView.getCurrentDaySelectedIconRes();
     }
@@ -286,6 +291,11 @@ public class CalendarDialog extends Dialog implements View.OnClickListener,
     @Override
     public void setCurrentDayIconRes(int currentDayIconRes) {
         calendarView.setCurrentDayIconRes(currentDayIconRes);
+    }
+
+    @Override
+    public void setCurrentDayBackgroundColor(int currentDayBackgroundColor) {
+        calendarView.setCurrentDayBackgroundColor(currentDayBackgroundColor);
     }
 
     @Override

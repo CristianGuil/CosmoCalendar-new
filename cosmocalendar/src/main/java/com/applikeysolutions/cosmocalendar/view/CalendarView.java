@@ -3,6 +3,7 @@ package com.applikeysolutions.cosmocalendar.view;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.AttrRes;
@@ -83,7 +84,7 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
 
     //Views
     private LinearLayout llDaysOfWeekTitles;
-    private FrameLayout flNavigationButtons;
+    private RelativeLayout flNavigationButtons;
     private ImageView ivPrevious;
     private ImageView ivNext;
 
@@ -165,14 +166,15 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
         int selectedDayBackgroundEndColor = typedArray.getColor(R.styleable.CalendarView_selectedDayBackgroundEndColor, ContextCompat.getColor(getContext(), R.color.default_selected_day_background_end_color));
         int currentDayTextColor = typedArray.getColor(R.styleable.CalendarView_currentDayTextColor, ContextCompat.getColor(getContext(), R.color.default_day_text_color));
         int currentDayIconRes = typedArray.getResourceId(R.styleable.CalendarView_currentDayIconRes, R.drawable.ic_triangle_green);
+        int currentDayBackgroundColor = typedArray.getColor(R.styleable.CalendarView_selectedDayBackgroundColor, ContextCompat.getColor(getContext(), R.color.default_month_text_color));
         int currentDaySelectedIconRes = typedArray.getResourceId(R.styleable.CalendarView_currentDaySelectedIconRes, R.drawable.ic_triangle_white);
         int connectedDayIconRes = typedArray.getResourceId(R.styleable.CalendarView_connectedDayIconRes, 0);
         int connectedDaySelectedIconRes = typedArray.getResourceId(R.styleable.CalendarView_connectedDaySelectedIconRes, 0);
         int connectedDayIconPosition = typedArray.getInteger(R.styleable.CalendarView_connectedDayIconPosition, SettingsManager.DEFAULT_CONNECTED_DAY_ICON_POSITION);
         int disabledDayTextColor = typedArray.getColor(R.styleable.CalendarView_disabledDayTextColor, ContextCompat.getColor(getContext(), R.color.default_disabled_day_text_color));
         int selectionBarMonthTextColor = typedArray.getColor(R.styleable.CalendarView_selectionBarMonthTextColor, ContextCompat.getColor(getContext(), R.color.default_selection_bar_month_title_text_color));
-        int previousMonthIconRes = typedArray.getResourceId(R.styleable.CalendarView_previousMonthIconRes, R.drawable.ic_chevron_left_gray);
-        int nextMonthIconRes = typedArray.getResourceId(R.styleable.CalendarView_nextMonthIconRes, R.drawable.ic_chevron_right_gray);
+        int previousMonthIconRes = typedArray.getResourceId(R.styleable.CalendarView_previousMonthIconRes, R.drawable.arrow_calendar_left);
+        int nextMonthIconRes = typedArray.getResourceId(R.styleable.CalendarView_nextMonthIconRes, R.drawable.arrow_calendar_right);
 
         setBackgroundColor(calendarBackgroundColor);
         settingsManager.setCalendarBackgroundColor(calendarBackgroundColor);
@@ -192,6 +194,7 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
         settingsManager.setSelectionBarMonthTextColor(selectionBarMonthTextColor);
         settingsManager.setCurrentDayTextColor(currentDayTextColor);
         settingsManager.setCurrentDayIconRes(currentDayIconRes);
+        settingsManager.setCurrentDayBackgroundColor(currentDayBackgroundColor);
         settingsManager.setCurrentDaySelectedIconRes(currentDaySelectedIconRes);
         settingsManager.setCalendarOrientation(orientation);
         settingsManager.setFirstDayOfWeek(firstDayOfWeek);
@@ -304,7 +307,7 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.addRule(RelativeLayout.BELOW, rvMonths.getId());
         flBottomSelectionBar.setLayoutParams(params);
-        flBottomSelectionBar.setBackgroundResource(R.drawable.border_top_bottom);
+//        flBottomSelectionBar.setBackgroundResource(R.drawable.border_top_bottom);
         flBottomSelectionBar.setVisibility(settingsManager.getCalendarOrientation() == OrientationHelper.HORIZONTAL ? View.VISIBLE : View.GONE);
         addView(flBottomSelectionBar);
 
@@ -400,6 +403,7 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
         rvMonths.addOnScrollListener(pagingScrollListener);
         rvMonths.getRecycledViewPool().setMaxRecycledViews(ItemViewType.MONTH, 10);
         addView(rvMonths);
+        rvMonths.fling(1,1);
     }
 
     /**
@@ -408,7 +412,7 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
      */
     private void createNavigationButtons() {
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        flNavigationButtons = (FrameLayout) inflater.inflate(R.layout.calendar_navigation_buttons, this, false);
+        flNavigationButtons = (RelativeLayout) inflater.inflate(R.layout.calendar_navigation_buttons, this, false);
 
         setPreviousNavigationButton();
         setNextNavigationButton();
@@ -804,6 +808,11 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
     }
 
     @Override
+    public int getCurrentDayBackgroundColor() {
+        return settingsManager.getCurrentDayBackgroundColor();
+    }
+
+    @Override
     public int getCurrentDaySelectedIconRes() {
         return settingsManager.getCurrentDaySelectedIconRes();
     }
@@ -930,6 +939,12 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
     @Override
     public void setCurrentDayIconRes(int currentDayIconRes) {
         settingsManager.setCurrentDayIconRes(currentDayIconRes);
+        update();
+    }
+
+    @Override
+    public void setCurrentDayBackgroundColor(int currentDayBackgroundColor) {
+        settingsManager.setCurrentDayBackgroundColor(currentDayBackgroundColor);
         update();
     }
 

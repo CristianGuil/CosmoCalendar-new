@@ -26,6 +26,8 @@ public interface AppearanceInterface {
 
     int getCurrentDayIconRes();
 
+    int getCurrentDayBackgroundColor();
+
     int getCurrentDaySelectedIconRes();
 
     int getCalendarOrientation();
@@ -73,6 +75,8 @@ public interface AppearanceInterface {
     void setCurrentDayIconRes(int currentDayIconRes);
 
     void setCurrentDaySelectedIconRes(int currentDaySelectedIconRes);
+
+    void setCurrentDayBackgroundColor(int selectedDayBackgroundColor);
 
     void setCalendarOrientation(int calendarOrientation);
 

@@ -43,4 +43,12 @@ public class SlowdownRecyclerView extends RecyclerView {
     public void smoothScrollBy(int dx, int dy) {
         super.smoothScrollBy(dx, dy, interpolator);
     }
+
+    @Override
+    public boolean fling(int velocityX, int velocityY) {
+
+        velocityY *= 0;
+
+        return super.fling(velocityY, velocityY);
+    }
 }
