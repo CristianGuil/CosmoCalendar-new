@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.Toolbar;
@@ -19,6 +20,7 @@ import com.applikeysolutions.cosmocalendar.selection.criteria.WeekDayCriteria;
 import com.applikeysolutions.cosmocalendar.selection.criteria.month.CurrentMonthCriteria;
 import com.applikeysolutions.cosmocalendar.selection.criteria.month.NextMonthCriteria;
 import com.applikeysolutions.cosmocalendar.selection.criteria.month.PreviousMonthCriteria;
+import com.applikeysolutions.cosmocalendar.settings.appearance.ConnectedDayIconPosition;
 import com.applikeysolutions.cosmocalendar.settings.lists.connected_days.ConnectedDays;
 import com.applikeysolutions.cosmocalendar.utils.SelectionType;
 import com.applikeysolutions.cosmocalendar.view.CalendarView;
@@ -58,19 +60,22 @@ public class DefaultCalendarActivity extends AppCompatActivity implements RadioG
         ((RadioGroup) findViewById(R.id.rg_orientation)).setOnCheckedChangeListener(this);
         ((RadioGroup) findViewById(R.id.rg_selection_type)).setOnCheckedChangeListener(this);
 
-//        //Set days you want to connect
-//        Calendar calendar = Calendar.getInstance();
-//        Set<Long> days = new TreeSet<>();
-//        days.add(calendar.getTimeInMillis() + 1000 * 60 * 60 * 24 * 3);
-//
-//        //Define colors
-//        int textColor = Color.parseColor("#ff0000");
-//        int selectedTextColor = Color.parseColor("#ff4000");
-//        int disabledTextColor = Color.parseColor("#ff8000");
-//        ConnectedDays connectedDays = new ConnectedDays(days, textColor, selectedTextColor, disabledTextColor);
-//
-//        //Connect days to calendar
-//        calendarView.addConnectedDays(connectedDays);
+        //Set days you want to connect
+        Calendar calendar = Calendar.getInstance();
+        Set<Long> days = new TreeSet<>();
+        days.add(calendar.getTimeInMillis() + 1000 * 60 * 60 * 24 * 3);
+
+        //Define colors
+        int textColor = Color.parseColor("#ff0000");
+        int selectedTextColor = Color.parseColor("#ff4000");
+        int disabledTextColor = Color.parseColor("#ff8000");
+        ConnectedDays connectedDays = new ConnectedDays(days, textColor, selectedTextColor, disabledTextColor);
+
+        calendarView.setConnectedDayIconPosition(ConnectedDayIconPosition.TOP);
+        calendarView.setConnectedDayIconRes(R.drawable.arrow_calendar_left);
+
+        //Connect days to calendar
+        calendarView.addConnectedDays(connectedDays);
     }
 
     private void createCriterias() {
