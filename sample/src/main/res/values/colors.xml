@@ -5,4 +5,9 @@
     <color name="colorAccent">#00cf78</color>
     <color name="textColor">#ffffff</color>
     <color name="textColorDisable">#80ffffff</color>
+
+    <color name="default_day_text_color">#FF6F6F6E</color>
+    <color name="default_selected_day_text_color">@android:color/white</color>
+    <color name="default_disabled_day_text_color">#FFE1E4E7</color>
+
 </resources>

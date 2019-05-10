@@ -64,15 +64,17 @@ public class DefaultCalendarActivity extends AppCompatActivity implements RadioG
         Calendar calendar = Calendar.getInstance();
         Set<Long> days = new TreeSet<>();
         days.add(calendar.getTimeInMillis() + 1000 * 60 * 60 * 24 * 3);
+        days.add(calendar.getTimeInMillis());
 
         //Define colors
-        int textColor = Color.parseColor("#ff0000");
-        int selectedTextColor = Color.parseColor("#ff4000");
-        int disabledTextColor = Color.parseColor("#ff8000");
+        int textColor = ContextCompat.getColor(getApplication(), R.color.default_day_text_color);
+        int selectedTextColor = ContextCompat.getColor(getApplication(), R.color.default_selected_day_text_color);
+        int disabledTextColor = ContextCompat.getColor(getApplication(), R.color.default_disabled_day_text_color);
         ConnectedDays connectedDays = new ConnectedDays(days, textColor, selectedTextColor, disabledTextColor);
 
-        calendarView.setConnectedDayIconPosition(ConnectedDayIconPosition.TOP);
-        calendarView.setConnectedDayIconRes(R.drawable.arrow_calendar_left);
+        calendarView.setConnectedDayIconPosition(ConnectedDayIconPosition.BOTTOM);
+        calendarView.setConnectedDayIconRes(R.drawable.connected_icon);
+        calendarView.setConnectedDaySelectedIconRes(R.drawable.connected_selected_icon);
 
         //Connect days to calendar
         calendarView.addConnectedDays(connectedDays);

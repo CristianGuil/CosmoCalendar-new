@@ -4,16 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
+    <com.applikeysolutions.cosmocalendar.view.customviews.TextViewLatoLight
         android:id="@+id/tv_day_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:padding="@dimen/day_text_padding"
+        android:padding="12dp"
         android:textColor="@color/default_other_day_text_color"
         android:textSize="@dimen/day_text_size"
-        tools:text="10" />
+        tools:text="10"/>
 
 </FrameLayout>
 
