@@ -1,8 +1,11 @@
 package com.applikeysolutions.cosmocalendar.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.ViewGroup;
 
+import com.applikeysolutions.cosmocalendar.listeners.OnSelectedDayListener;
+import com.applikeysolutions.cosmocalendar.selection.OnDaySelectedListener;
 import com.applikeysolutions.cosmocalendar.utils.Constants;
 import com.applikeysolutions.cosmocalendar.adapter.viewholder.OtherDayHolder;
 import com.applikeysolutions.cosmocalendar.adapter.viewholder.DayHolder;
@@ -17,6 +20,7 @@ import com.applikeysolutions.cosmocalendar.view.delegate.OtherDayDelegate;
 
 public class DaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private OnSelectedDayListener onDaySelectedListener;
     private Month month;
     private DayOfWeekDelegate dayOfWeekDelegate;
     private DayDelegate dayDelegate;
@@ -27,13 +31,14 @@ public class DaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         DayOfWeekDelegate dayOfWeekDelegate,
                         DayDelegate dayDelegate,
                         OtherDayDelegate otherDayDelegate,
-                        CalendarView calendarView) {
+                        CalendarView calendarView, OnSelectedDayListener onDaySelectedListener) {
         setHasStableIds(false);
         this.month = month;
         this.dayOfWeekDelegate = dayOfWeekDelegate;
         this.dayDelegate = dayDelegate;
         this.otherDayDelegate = otherDayDelegate;
         this.calendarView = calendarView;
+        this.onDaySelectedListener = onDaySelectedListener;
     }
 
     @Override
@@ -126,8 +131,8 @@ public class DaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             return this;
         }
 
-        public DaysAdapter createDaysAdapter() {
-            return new DaysAdapter(month, dayOfWeekDelegate, dayDelegate, anotherDayDelegate, calendarView);
+        public DaysAdapter createDaysAdapter(OnSelectedDayListener onDaySelectedListener) {
+            return new DaysAdapter(month, dayOfWeekDelegate, dayDelegate, anotherDayDelegate, calendarView, onDaySelectedListener);
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.applikeysolutions.cosmocalendar.sample;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
@@ -14,7 +13,10 @@ import android.view.MenuItem;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.applikeysolutions.cosmocalendar.listeners.OnSelectedDayListener;
+import com.applikeysolutions.cosmocalendar.model.Day;
 import com.applikeysolutions.cosmocalendar.selection.MultipleSelectionManager;
+import com.applikeysolutions.cosmocalendar.selection.OnDaySelectedListener;
 import com.applikeysolutions.cosmocalendar.selection.criteria.BaseCriteria;
 import com.applikeysolutions.cosmocalendar.selection.criteria.WeekDayCriteria;
 import com.applikeysolutions.cosmocalendar.selection.criteria.month.CurrentMonthCriteria;
@@ -57,6 +59,13 @@ public class DefaultCalendarActivity extends AppCompatActivity implements RadioG
 
     private void initViews() {
         calendarView = (CalendarView) findViewById(R.id.calendar_view);
+
+        calendarView.setOnSelectedDayListener(new OnSelectedDayListener() {
+            @Override
+            public void onSelectedDay(final Day day) {
+                Toast.makeText(DefaultCalendarActivity.this, day.getDayNumber()+"", Toast.LENGTH_SHORT).show();
+            }
+        });
         ((RadioGroup) findViewById(R.id.rg_orientation)).setOnCheckedChangeListener(this);
         ((RadioGroup) findViewById(R.id.rg_selection_type)).setOnCheckedChangeListener(this);
 
@@ -78,6 +87,10 @@ public class DefaultCalendarActivity extends AppCompatActivity implements RadioG
 
         //Connect days to calendar
         calendarView.addConnectedDays(connectedDays);
+        calendarView.update();
+
+//        Toast.makeText(DefaultCalendarActivity.this, day.getDayNumber(), Toast.LENGTH_SHORT).show();
+
     }
 
     private void createCriterias() {

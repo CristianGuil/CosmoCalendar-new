@@ -3,7 +3,6 @@ package com.applikeysolutions.cosmocalendar.view;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.AttrRes;
@@ -28,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.applikeysolutions.cosmocalendar.listeners.OnSelectedDayListener;
 import com.applikeysolutions.cosmocalendar.selection.NoneSelectionManager;
 import com.applikeysolutions.cosmocalendar.FetchMonthsAsyncTask;
 import com.applikeysolutions.cosmocalendar.adapter.MonthAdapter;
@@ -100,6 +100,7 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
     private int lastVisibleMonthPosition = SettingsManager.DEFAULT_MONTH_COUNT / 2;
 
     private FetchMonthsAsyncTask asyncTask;
+    private OnSelectedDayListener onSelectedDayListener;
 
     public CalendarView(Context context) {
         super(context);
@@ -448,7 +449,14 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
                 .setMonthDelegate(new MonthDelegate(settingsManager))
                 .setCalendarView(this)
                 .setSelectionManager(selectionManager)
-                .createMonthAdapter();
+                .createMonthAdapter(new OnSelectedDayListener() {
+                    @Override
+                    public void onSelectedDay(Day day) {
+                        if (onSelectedDayListener!=null){
+                            onSelectedDayListener.onSelectedDay(day);
+                        }
+                    }
+                });
     }
 
     /**
@@ -1097,6 +1105,10 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
 
     public void setOnMonthChangeListener(OnMonthChangeListener onMonthChangeListener) {
         this.onMonthChangeListener = onMonthChangeListener;
+    }
+
+    public void setOnSelectedDayListener(OnSelectedDayListener onSelectedDayListener) {
+        this.onSelectedDayListener = onSelectedDayListener;
     }
 
     @Override

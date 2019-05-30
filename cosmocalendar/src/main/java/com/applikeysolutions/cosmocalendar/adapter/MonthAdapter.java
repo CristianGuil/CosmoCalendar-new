@@ -4,9 +4,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import com.applikeysolutions.cosmocalendar.adapter.viewholder.MonthHolder;
+import com.applikeysolutions.cosmocalendar.listeners.OnSelectedDayListener;
 import com.applikeysolutions.cosmocalendar.model.Day;
 import com.applikeysolutions.cosmocalendar.model.Month;
 import com.applikeysolutions.cosmocalendar.selection.BaseSelectionManager;
+import com.applikeysolutions.cosmocalendar.selection.OnDaySelectedListener;
 import com.applikeysolutions.cosmocalendar.settings.lists.DisabledDaysCriteria;
 import com.applikeysolutions.cosmocalendar.utils.CalendarUtils;
 import com.applikeysolutions.cosmocalendar.utils.DayFlag;
@@ -24,6 +26,7 @@ import java.util.Set;
 public class MonthAdapter extends RecyclerView.Adapter<MonthHolder> {
 
     private final List<Month> months;
+    private final OnSelectedDayListener onDaySelectedListener;
 
     private MonthDelegate monthDelegate;
 
@@ -34,12 +37,13 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthHolder> {
     private MonthAdapter(List<Month> months,
                          MonthDelegate monthDelegate,
                          CalendarView calendarView,
-                         BaseSelectionManager selectionManager) {
+                         BaseSelectionManager selectionManager, OnSelectedDayListener onDaySelectedListener) {
         setHasStableIds(true);
         this.months = months;
         this.monthDelegate = monthDelegate;
         this.calendarView = calendarView;
         this.selectionManager = selectionManager;
+        this.onDaySelectedListener = onDaySelectedListener;
     }
 
     public void setSelectionManager(BaseSelectionManager selectionManager) {
@@ -55,9 +59,9 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthHolder> {
         daysAdapter = new DaysAdapter.DaysAdapterBuilder()
                 .setDayOfWeekDelegate(new DayOfWeekDelegate(calendarView))
                 .setOtherDayDelegate(new OtherDayDelegate(calendarView))
-                .setDayDelegate(new DayDelegate(calendarView, this))
+                .setDayDelegate(new DayDelegate(calendarView, this, onDaySelectedListener))
                 .setCalendarView(calendarView)
-                .createDaysAdapter();
+                .createDaysAdapter(onDaySelectedListener);
         return monthDelegate.onCreateMonthHolder(daysAdapter, parent, viewType);
     }
 
@@ -113,11 +117,12 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthHolder> {
             return this;
         }
 
-        public MonthAdapter createMonthAdapter() {
+        public MonthAdapter createMonthAdapter(OnSelectedDayListener onDaySelectedListener) {
             return new MonthAdapter(months,
                     monthDelegate,
                     calendarView,
-                    selectionManager);
+                    selectionManager,
+                    onDaySelectedListener);
         }
     }
 

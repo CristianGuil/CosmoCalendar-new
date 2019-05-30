@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.applikeysolutions.cosmocalendar.listeners.OnSelectedDayListener;
 import com.applikeysolutions.customizablecalendar.R;
 import com.applikeysolutions.cosmocalendar.adapter.MonthAdapter;
 import com.applikeysolutions.cosmocalendar.adapter.viewholder.DayHolder;
@@ -15,11 +16,13 @@ import com.applikeysolutions.cosmocalendar.view.CalendarView;
 
 public class DayDelegate extends BaseDelegate {
 
+    private OnSelectedDayListener onDaySelectedListener;
     private MonthAdapter monthAdapter;
 
-    public DayDelegate(CalendarView calendarView, MonthAdapter monthAdapter) {
+    public DayDelegate(CalendarView calendarView, MonthAdapter monthAdapter, OnSelectedDayListener onDaySelectedListener) {
         this.calendarView = calendarView;
         this.monthAdapter = monthAdapter;
+        this.onDaySelectedListener = onDaySelectedListener;
     }
 
     public DayHolder onCreateDayHolder(ViewGroup parent, int viewType) {
@@ -41,6 +44,9 @@ public class DayDelegate extends BaseDelegate {
                     } else {
                         monthAdapter.notifyDataSetChanged();
                     }
+                }
+                if (onDaySelectedListener != null) {
+                    onDaySelectedListener.onSelectedDay(day);
                 }
             }
         });
