@@ -22,6 +22,7 @@ import java.util.Set;
 public class SettingsManager implements AppearanceInterface, DateInterface, CalendarListsInterface, SelectionInterface {
 
     //Default values
+//    public static final int DEFAULT_MONTH_COUNT = 2;
     public static final int DEFAULT_MONTH_COUNT = 20;
     public static final int DEFAULT_SELECTION_TYPE = SelectionType.SINGLE;
     public static final int DEFAULT_FIRST_DAY_OF_WEEK = Calendar.MONDAY;
@@ -143,6 +144,7 @@ public class SettingsManager implements AppearanceInterface, DateInterface, Cale
     }
 
     @Override
+
     public int getDisabledDayTextColor() {
         return appearanceModel.getDisabledDayTextColor();
     }
