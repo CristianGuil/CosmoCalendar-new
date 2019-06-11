@@ -95,6 +95,8 @@ public class DefaultCalendarActivity extends AppCompatActivity implements RadioG
             @Override
             public void onMonthChanged(Month month) {
                 calendarView.addConnectedDays(connectedDays);
+                calendarView.update();
+
             }
         });
 
