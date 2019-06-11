@@ -249,7 +249,7 @@ public class CircleAnimationTextView extends AppCompatTextView {
     private void animateView() {
         CircularFillAnimation animation = new CircularFillAnimation();
 //        animation.setInterpolator(new BounceInterpolator()); //just for fun
-        animation.setDuration(SELECTION_ANIMATION_DURATION);
+        animation.setDuration(0);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
