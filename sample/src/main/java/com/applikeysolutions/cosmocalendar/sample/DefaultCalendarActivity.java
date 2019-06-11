@@ -13,8 +13,10 @@ import android.view.MenuItem;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.applikeysolutions.cosmocalendar.listeners.OnMonthChangeListener;
 import com.applikeysolutions.cosmocalendar.listeners.OnSelectedDayListener;
 import com.applikeysolutions.cosmocalendar.model.Day;
+import com.applikeysolutions.cosmocalendar.model.Month;
 import com.applikeysolutions.cosmocalendar.selection.MultipleSelectionManager;
 import com.applikeysolutions.cosmocalendar.selection.OnDaySelectedListener;
 import com.applikeysolutions.cosmocalendar.selection.criteria.BaseCriteria;
@@ -79,7 +81,7 @@ public class DefaultCalendarActivity extends AppCompatActivity implements RadioG
         int textColor = ContextCompat.getColor(getApplication(), R.color.default_day_text_color);
         int selectedTextColor = ContextCompat.getColor(getApplication(), R.color.default_selected_day_text_color);
         int disabledTextColor = ContextCompat.getColor(getApplication(), R.color.default_disabled_day_text_color);
-        ConnectedDays connectedDays = new ConnectedDays(days, textColor, selectedTextColor, disabledTextColor);
+        final ConnectedDays connectedDays = new ConnectedDays(days, textColor, selectedTextColor, disabledTextColor);
 
         calendarView.setConnectedDayIconPosition(ConnectedDayIconPosition.BOTTOM);
         calendarView.setConnectedDayIconRes(R.drawable.connected_icon);
@@ -88,6 +90,13 @@ public class DefaultCalendarActivity extends AppCompatActivity implements RadioG
         //Connect days to calendar
         calendarView.addConnectedDays(connectedDays);
         calendarView.update();
+
+        calendarView.setOnMonthChangeListener(new OnMonthChangeListener() {
+            @Override
+            public void onMonthChanged(Month month) {
+                calendarView.addConnectedDays(connectedDays);
+            }
+        });
 
 //        Toast.makeText(DefaultCalendarActivity.this, day.getDayNumber(), Toast.LENGTH_SHORT).show();
 

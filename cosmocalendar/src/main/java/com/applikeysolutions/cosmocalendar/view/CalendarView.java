@@ -582,7 +582,7 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
     @Override
     public void addConnectedDays(ConnectedDays connectedDays) {
         settingsManager.getConnectedDaysManager().addConnectedDays(connectedDays);
-        recreateInitialMonth();
+//        recreateInitialMonth();
     }
 
     /**
