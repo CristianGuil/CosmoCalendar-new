@@ -19,8 +19,8 @@
     <dimen name="text_big">16sp</dimen>
     <dimen name="text_large">18sp</dimen>
 
-    <dimen name="day_text_size">16sp</dimen>
-    <dimen name="day_number_text_size">15sp</dimen>
+    <dimen name="day_text_size">16dp</dimen>
+    <dimen name="day_number_text_size">15dp</dimen>
     <dimen name="day_text_padding">8dp</dimen>
 
 </resources>
