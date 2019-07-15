@@ -636,7 +636,9 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
     public void goToPreviousMonth() {
         int currentVisibleItemPosition = ((GridLayoutManager) rvMonths.getLayoutManager()).findFirstVisibleItemPosition();
         if (currentVisibleItemPosition != 0) {
-            rvMonths.smoothScrollToPosition(currentVisibleItemPosition - 1);
+//            rvMonths.smoothScrollToPosition(currentVisibleItemPosition - 1);
+            rvMonths.scrollToPosition(currentVisibleItemPosition + 1);
+
         }
     }
 
@@ -646,7 +648,8 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
     public void goToNextMonth() {
         int currentVisibleItemPosition = ((GridLayoutManager) rvMonths.getLayoutManager()).findFirstVisibleItemPosition();
         if (currentVisibleItemPosition != monthAdapter.getData().size() - 1) {
-            rvMonths.smoothScrollToPosition(currentVisibleItemPosition + 1);
+//            rvMonths.smoothScrollToPosition(currentVisibleItemPosition + 1);
+            rvMonths.scrollToPosition(currentVisibleItemPosition + 1);
         }
     }
 
