@@ -637,7 +637,7 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
         int currentVisibleItemPosition = ((GridLayoutManager) rvMonths.getLayoutManager()).findFirstVisibleItemPosition();
         if (currentVisibleItemPosition != 0) {
 //            rvMonths.smoothScrollToPosition(currentVisibleItemPosition - 1);
-            rvMonths.scrollToPosition(currentVisibleItemPosition + 1);
+            rvMonths.scrollToPosition(currentVisibleItemPosition - 1);
 
         }
     }
